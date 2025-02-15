@@ -18,8 +18,6 @@ data "aws_ami" "joindevops" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
-
-  
 }
  
 data "aws_ssm_parameter" "bastion_sg_id" { # this is for Query parameter store value
