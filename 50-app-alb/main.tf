@@ -7,6 +7,7 @@ module "alb" {
   subnets = local.private_subnet_ids # referring sunets from locals # here need to mention local name only
   create_security_group = false # not creating security group here # here need to mention local name only
   security_groups = [local.app_alb_sg_id] # reffering data from locals
+  enable_deletion_protection = false # 
 tags = merge(
     var.common_tags,
     {
