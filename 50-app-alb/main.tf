@@ -7,7 +7,7 @@ module "alb" {
   subnets = local.private_subnet_ids # referring sunets from locals # here need to mention local name only
   create_security_group = false # not creating security group here # here need to mention local name only
   security_groups = [local.app_alb_sg_id] # reffering data from locals
-  enable_deletion_protection = false # 
+  enable_deletion_protection = false # this is witll delete every records
 tags = merge(
     var.common_tags,
     {
@@ -35,15 +35,15 @@ resource "aws_lb_listener" "http" {
 }
 
 
-#route53 records
+#route53 records 
 resource "aws_route53_record" "app_alb" {
 zone_id = var.zone_id
 name = "*.app-dev.${var.domain_name}"
 type = "A"
 
 alias {
-name = module.alb.dns_name
-zone_id = module.alb.zone_id
+name = module.alb.dns_name #taking reference form dns name
+zone_id = module.alb.zone_id #taking reference from zone id
 evaluate_target_health = false
 }
 }
